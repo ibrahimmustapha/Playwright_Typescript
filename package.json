@@ -1,0 +1,15 @@
+{
+  "name": "playwright-typescript",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "test": "playwright test"
+  },
+  "devDependencies": {
+    "playwright": "^1.0.0",
+    "typescript": "^4.0.0"
+  },
+  "dependencies": {
+    "@playwright/test": "^1.56.0"
+  }
+}
