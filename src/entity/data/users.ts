@@ -9,3 +9,8 @@ export const unauthorizedUser: UserDetails = {
   username: "un_auth_user",
   password: "12343",
 };
+
+export const emailOnlyUser: UserDetails = {
+  username: "standard_user",
+  password: "",
+};

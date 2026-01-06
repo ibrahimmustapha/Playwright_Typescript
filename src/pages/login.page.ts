@@ -2,6 +2,7 @@ import { expect, Page } from "playwright/test";
 import { BasePage } from "./base.page";
 import { UserDetails } from "../entity/userDetails";
 import { logger } from "../utils/logger";
+import { ErrorMessage } from "../entity/data/errorrMessages";
 
 export class LoginPage extends BasePage {
   readonly usernameInput;
@@ -17,8 +18,14 @@ export class LoginPage extends BasePage {
 
   async login(userDetails: UserDetails) {
     logger.info("Login as a user");
-    await this.usernameInput.fill(userDetails.username);
-    await this.passwordInput.fill(userDetails.password);
+    if (userDetails.username != null || userDetails.username != "") {
+      await this.usernameInput.fill(userDetails.username);
+    }
+
+    if (userDetails.password != null || userDetails.password != "") {
+      await this.passwordInput.fill(userDetails.password);
+    }
+
     await this.loginButton.click();
   }
 
@@ -33,8 +40,17 @@ export class LoginPage extends BasePage {
     logger.info("verifying login was not successful");
     await expect(this.page).toHaveURL("https://www.saucedemo.com");
     await expect(this.page.locator(".error-message-container")).toHaveText(
-      /Epic sadface: Username and password do not match any user in this service/
+      ErrorMessage.USERNAME_AND_PASSWORD_NOT_AVAILABLE
     );
     logger.info("Login was not successful");
+  }
+
+  async verifyUserLoginWasNotSuccessfulWithOnlyUsername() {
+    logger.info("verifying login was not successful with only username");
+    await expect(this.page).toHaveURL("https://www.saucedemo.com");
+    await expect(this.page.locator(".error-message-container")).toHaveText(
+      ErrorMessage.PASSWORD_IS_REQUIRED
+    );
+    logger.info("Login was not successful with only username");
   }
 }

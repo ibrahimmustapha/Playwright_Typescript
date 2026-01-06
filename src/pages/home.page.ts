@@ -14,6 +14,6 @@ export class HomePage extends BasePage {
   }
 
   async verifyTitle() {
-    await expect(this.page).toHaveTitle(/Something/);
+    await expect(this.page).toHaveTitle(/Swag Labs/);
   }
 }
