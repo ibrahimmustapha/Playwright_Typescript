@@ -8,7 +8,7 @@ export default defineConfig({
   },
   reporter: "html",
   use: {
-    headless: false,
+    headless: true,
     actionTimeout: 0,
   },
 
