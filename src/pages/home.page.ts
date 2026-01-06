@@ -9,10 +9,6 @@ export class HomePage extends BasePage {
     this.heading = page.locator("h1");
   }
 
-  async open(url = "") {
-    await this.goto(url);
-  }
-
   async verifyTitle() {
     await expect(this.page).toHaveTitle(/Swag Labs/);
   }
