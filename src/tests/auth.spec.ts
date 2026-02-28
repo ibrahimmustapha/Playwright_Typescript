@@ -1,58 +1,61 @@
-import test from "playwright/test";
+import { test } from "@playwright/test";
 import { LoginPage } from "../pages/login.page";
 import {
   emailOnlyUser,
-  standUser,
+  standardUser,
   unauthorizedUser,
 } from "../entity/data/users";
 import { logger } from "../utils/logger";
 import { HomePage } from "../pages/home.page";
 
-test("Login as user", async ({ page }) => {
-  logger.info("Test started", { testName: "Login as user" });
+test.describe("Authentication", () => {
+  test("Login as user", async ({ page }) => {
+    logger.info("Test started", { testName: "Login as user" });
 
-  const loginPage = new LoginPage(page);
-  await loginPage.goto("https://www.saucedemo.com/");
-  await loginPage.login(standUser);
-  const homePage = new HomePage(page);
-  await homePage.verifyTitle();
-  await loginPage.verifyUserLoggedInSuccessfully();
+    const loginPage = new LoginPage(page);
+    await loginPage.goto("/");
+    await loginPage.login(standardUser);
+    const homePage = new HomePage(page);
+    await homePage.verifyInventoryPageLoaded();
+    await homePage.verifyTitle();
+    await loginPage.verifyUserLoggedInSuccessfully();
 
-  logger.info("Test Completed", { testName: "Login as user" });
-});
+    logger.info("Test Completed", { testName: "Login as user" });
+  });
 
-test("Login with wrong credentials", async ({ page }) => {
-  logger.info("Test started", { testName: "Login with wrong credentials" });
+  test("Login with wrong credentials", async ({ page }) => {
+    logger.info("Test started", { testName: "Login with wrong credentials" });
 
-  const loginPage = new LoginPage(page);
-  await loginPage.goto("https://www.saucedemo.com/");
-  await loginPage.login(unauthorizedUser);
-  await loginPage.verifyUserLoginWasNotSuccessful();
+    const loginPage = new LoginPage(page);
+    await loginPage.goto("/");
+    await loginPage.login(unauthorizedUser);
+    await loginPage.verifyUserLoginWasNotSuccessful();
 
-  logger.info("Test Completed", { testName: "Login with wrong credentials" });
-});
+    logger.info("Test Completed", { testName: "Login with wrong credentials" });
+  });
 
-test("Login with only username", async ({ page }) => {
-  logger.info("Test started", { testName: "Login with only username" });
+  test("Login with only username", async ({ page }) => {
+    logger.info("Test started", { testName: "Login with only username" });
 
-  const loginPage = new LoginPage(page);
-  await loginPage.goto("https://www.saucedemo.com/");
-  await loginPage.login(emailOnlyUser);
-  await loginPage.verifyUserLoginWasNotSuccessfulWithOnlyUsername();
+    const loginPage = new LoginPage(page);
+    await loginPage.goto("/");
+    await loginPage.login(emailOnlyUser);
+    await loginPage.verifyUserLoginWasNotSuccessfulWithOnlyUsername();
 
-  logger.info("Test Completed", { testName: "Login with only username" });
-});
+    logger.info("Test Completed", { testName: "Login with only username" });
+  });
 
-test("Logout user", async ({ page }) => {
-  logger.info("Test started", { testName: "Logout user" });
+  test("Logout user", async ({ page }) => {
+    logger.info("Test started", { testName: "Logout user" });
 
-  const loginPage = new LoginPage(page);
-  await loginPage.goto("https://www.saucedemo.com/");
-  await loginPage.login(standUser);
-  const homePage = new HomePage(page);
-  await homePage.verifyTitle();
-  await homePage.logoutUser();
-  await homePage.verifyUserLoggedOut();
+    const loginPage = new LoginPage(page);
+    await loginPage.goto("/");
+    await loginPage.login(standardUser);
+    const homePage = new HomePage(page);
+    await homePage.verifyInventoryPageLoaded();
+    await homePage.logoutUser();
+    await homePage.verifyUserLoggedOut();
 
-  logger.info("Test Completed", { testName: "Login as user" });
+    logger.info("Test Completed", { testName: "Logout user" });
+  });
 });

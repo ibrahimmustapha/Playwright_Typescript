@@ -1,16 +1,21 @@
 import { UserDetails } from "../userDetails";
 
-export const standUser: UserDetails = {
-  username: "standard_user",
-  password: "secret_sauce",
-};
+export const users = {
+  standard: {
+    username: "standard_user",
+    password: "secret_sauce",
+  },
+  unauthorized: {
+    username: "un_auth_user",
+    password: "12343",
+  },
+  emailOnly: {
+    username: "standard_user",
+    password: "",
+  },
+} as const satisfies Record<string, UserDetails>;
 
-export const unauthorizedUser: UserDetails = {
-  username: "un_auth_user",
-  password: "12343",
-};
-
-export const emailOnlyUser: UserDetails = {
-  username: "standard_user",
-  password: "",
-};
+export const standardUser = users.standard;
+export const standUser = standardUser;
+export const unauthorizedUser = users.unauthorized;
+export const emailOnlyUser = users.emailOnly;

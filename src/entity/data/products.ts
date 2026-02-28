@@ -6,14 +6,16 @@ export enum Products {
 }
 
 export const productCatalog: Record<Products, ProductDetails> = {
-  [Products.SAUCE_LABS_BACKPACK]: new ProductDetails(
-    "Sauce Labs Backpack",
-    "Carry all the things with the sleek, streamlined Sly Pack.",
-    29.99
-  ),
-  [Products.SAUCE_LABS_BIKE_LIGHT]: new ProductDetails(
-    "Sauce Labs Bike Light",
-    "A red light built for speed and visibility.",
-    9.99
-  ),
+  [Products.SAUCE_LABS_BACKPACK]: {
+    title: "Sauce Labs Backpack",
+    description:
+      "carry.allTheThings() with the sleek, streamlined Sly Pack that melds uncompromising style with unequaled laptop and tablet protection.",
+    price: 29.99,
+  },
+  [Products.SAUCE_LABS_BIKE_LIGHT]: {
+    title: "Sauce Labs Bike Light",
+    description:
+      "A red light isn't the desired state in testing but it sure helps when riding your bike at night. Water-resistant with 3 lighting modes, 1 AAA battery included.",
+    price: 9.99,
+  },
 };
