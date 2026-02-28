@@ -1,4 +1,4 @@
-import test, { expect } from "playwright/test";
+import test from "playwright/test";
 import { LoginPage } from "../pages/login.page";
 import {
   emailOnlyUser,
@@ -41,4 +41,18 @@ test("Login with only username", async ({ page }) => {
   await loginPage.verifyUserLoginWasNotSuccessfulWithOnlyUsername();
 
   logger.info("Test Completed", { testName: "Login with only username" });
+});
+
+test("Logout user", async ({ page }) => {
+  logger.info("Test started", { testName: "Logout user" });
+
+  const loginPage = new LoginPage(page);
+  await loginPage.goto("https://www.saucedemo.com/");
+  await loginPage.login(standUser);
+  const homePage = new HomePage(page);
+  await homePage.verifyTitle();
+  await homePage.logoutUser();
+  await homePage.verifyUserLoggedOut();
+
+  logger.info("Test Completed", { testName: "Login as user" });
 });

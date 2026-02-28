@@ -21,4 +21,6 @@ export class ProductsPage extends BasePage {
   async openLadiesTShirtProducts() {
     await this.page.getByRole("link", { name: "Ladies T-Shirts" }).click();
   }
+
+  // async openProduct()
 }
